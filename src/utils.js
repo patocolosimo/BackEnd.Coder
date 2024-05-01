@@ -1,7 +1,7 @@
-const fileURLToPath = require('url').fileURLToPath;
-const dirname = require('path').dirname;
-const bcrypt = require('bcrypt');
-const passport = require('passport');
+const fileURLToPath = require("url").fileURLToPath;
+const dirname = require("path").dirname;
+const bcrypt = require("bcrypt");
+const passport = require("passport");
 
 const __dirname = dirname(import.meta.url);
 
@@ -15,21 +15,21 @@ exports.validaPass = (usuario, password) =>
 exports.passportView = (estrategia) =>
   function (req, res, next) {
     passport.authenticate(estrategia, function (err, user, info, status) {
-      console.log('PassportView');
+      console.log("PassportView");
       if (err) {
-        console.log('');
+        console.log("");
         return next(err);
       }
       if (!user) {
-        console.log('No hay usuario');
-        res.setHeader('Content-Type', 'application/json');
+        console.log("No hay usuario");
+        res.setHeader("Content-Type", "application/json");
         return res
           .status(500)
           .json({ error: info.message ? info.message : info.toString() });
       }
 
       req.user = user;
-      console.log('Saliendo de PassportView');
+      console.log("Saliendo de PassportView");
 
       next();
     })(req, res, next);
